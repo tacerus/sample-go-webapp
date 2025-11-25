@@ -1,0 +1,120 @@
+.navbar {
+  height: 3em;
+  padding: 0;
+  color: white;
+  background-color: #0c322c;
+}
+
+.navbar-brand {
+  margin-left: 1em;
+  padding-top: 5px;
+}
+
+.navbar-text {
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.content {
+  margin-top: 5px;
+}
+
+.c1-btn {
+  color: inherit;
+}
+
+.navbar-end-line {
+  display: flex;
+  height: 8px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  z-index: 1031; }
+
+.header-end-line-persimmon {
+  background-color: #FE7C3F;
+  width: 25%; }
+
+.header-end-line-green {
+  background-color: #30BA78;
+  width: 45%; }
+
+.header-end-line-waterhole-blue {
+  background-color: #2453ff;
+  width: 10%; }
+
+.header-end-line-mint {
+  background-color: #90ebcd;
+  width: 20%; }
+
+/* inspired by https://gist.github.com/AllThingsSmitty/cb32e5a377716bc8f147 */
+table.overview {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin:0;
+  padding:0;
+  width: 100%;
+}
+table.overview tr.overview-tr {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+table.overview th.overview-th, table td.overview-td {
+  padding: 10px;
+  text-align: center;
+}
+table.overview th {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 600px) {
+  table.overview {
+    border: 0;
+  }
+  table.overview thead {
+    display: none;
+  }
+  table.overview tr.overview-tr {
+    border-bottom: 2px solid #ddd;
+    display: block;
+    margin-bottom: 10px;
+  }
+  table.overview td.overview-td {
+    border-bottom: 1px dotted #ccc;
+    display: block;
+    font-size: 13px;
+    text-align: right;
+  }
+  table.overview td.overview-td:last-child {
+    border-bottom: 0;
+  }
+  table.overview td.overview-td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.button-bottom {
+  margin-top: 20px;
+}
+
+footer {
+    bottom: 0;
+    /* position: fixed; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+footer.session_id {
+    height: 100px;
+    margin: auto;
+    width: 400px;
+    text-align: center;
+    padding: 10px;
+}

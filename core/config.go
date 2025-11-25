@@ -1,0 +1,36 @@
+package core
+
+import (
+	"encoding/json"
+	"log/slog"
+	"os"
+)
+
+type Config struct {
+	AssetDir string
+	BaseUrl   string
+	Bind string
+	ClientId     string
+	ClientSecret string
+	OidcBaseUrl  string
+}
+
+func NewConfig(file string) Config {
+	c := new(Config)
+
+	fh, err := os.Open(file)
+	if err != nil {
+		slog.Error("Failed to open configuration file", "error", err)
+		os.Exit(1)
+	}
+	defer fh.Close()
+
+	if err := json.NewDecoder(fh).Decode(&c); err != nil {
+		slog.Error("Failed to parse configuration file", "error", err)
+		os.Exit(1)
+	}
+
+	return *c
+}
+
+
