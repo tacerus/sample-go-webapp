@@ -66,7 +66,7 @@ func NewWebApp(c core.Config) *WebApp {
 		ClientID:     c.ClientId,
 		ClientSecret: c.ClientSecret,
 		Endpoint:     provider.Endpoint(),
-		RedirectURL:  bu + "/login/callback",
+		RedirectURL:  bu + callbackPath,
 		Scopes: []string{
 			oidc.ScopeOpenID,
 			"profile",

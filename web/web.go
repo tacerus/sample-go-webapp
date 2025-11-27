@@ -9,11 +9,13 @@ import (
 	"golang.org/x/oauth2"
 )
 
+const callbackPath = "/login/callback"
+
 func (app *WebApp) newMux() *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", app.indexHandler)
 	mux.HandleFunc("/login/init", app.loginHandler)
-	mux.HandleFunc("/login/callback", app.callbackHandler)
+	mux.HandleFunc(callbackPath, app.callbackHandler)
 
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(app.staticDir))))
 
