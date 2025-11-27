@@ -51,9 +51,11 @@ func NewWebApp(c core.Config) *WebApp {
 		ClientID: c.ClientId,
 	}
 
+	app.Verifier = provider.Verifier(app.OidcConfig)
+
 	app.bind = c.Bind
 
-	slog.Debug("Initializing Oauth2 ...")
+	slog.Debug("Initializing OAuth2 ...")
 
 	bu := c.BaseUrl
 	if bu == "" {
@@ -72,7 +74,7 @@ func NewWebApp(c core.Config) *WebApp {
 		},
 	}
 
-	app.sessionManager = newSessionManager()
+	//app.sessionManager = newSessionManager()
 
 	gob.Register(&oauth2.Token{})
 
@@ -83,6 +85,8 @@ func NewWebApp(c core.Config) *WebApp {
 }
 
 func (app *WebApp) Start() *http.Server {
+	app.sessionManager = newSessionManager()
+
 	mux := app.newMux()
 	srv := &http.Server{
 		Addr: app.bind,

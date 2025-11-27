@@ -20,6 +20,8 @@ func main() {
 	flag.StringVar(&configArg, "config", "./config.json", "Configuration file")
 	flag.StringVar(&logLevelArg, "loglevel", "info", "Logging level")
 
+	flag.Parse()
+
 	slog.SetDefault(newSlog(newLogLevel(logLevelArg)))
 
 	slog.Info("Preparing web app ...")
