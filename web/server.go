@@ -20,9 +20,9 @@ type WebApp struct {
 	Ctx            context.Context
 	Verifier       *oidc.IDTokenVerifier
 	sessionManager *scs.SessionManager
-	bind string
-	templates *Templates
-	staticDir string
+	bind           string
+	templates      *Templates
+	staticDir      string
 }
 
 func NewWebApp(c core.Config) *WebApp {
@@ -63,10 +63,10 @@ func NewWebApp(c core.Config) *WebApp {
 	}
 
 	app.Oauth2Config = oauth2.Config{
-		ClientID: c.ClientId,
+		ClientID:     c.ClientId,
 		ClientSecret: c.ClientSecret,
-		Endpoint: provider.Endpoint(),
-		RedirectURL: bu + "/login/callback",
+		Endpoint:     provider.Endpoint(),
+		RedirectURL:  bu + "/login/callback",
 		Scopes: []string{
 			oidc.ScopeOpenID,
 			"profile",
@@ -89,7 +89,7 @@ func (app *WebApp) Start() *http.Server {
 
 	mux := app.newMux()
 	srv := &http.Server{
-		Addr: app.bind,
+		Addr:    app.bind,
 		Handler: app.sessionManager.LoadAndSave(app.initHandler(mux)),
 	}
 

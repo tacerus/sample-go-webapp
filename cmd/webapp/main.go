@@ -13,7 +13,7 @@ import (
 
 func main() {
 	var (
-		configArg string
+		configArg   string
 		logLevelArg string
 	)
 
@@ -48,5 +48,3 @@ main:
 
 	slog.Info("Shutting down ...")
 }
-
-

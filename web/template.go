@@ -5,16 +5,15 @@ import (
 )
 
 type PageData struct {
-	Subject string
-	Error        template.HTML
-	SessionId    string
+	Subject   string
+	Error     template.HTML
+	SessionId string
 }
 
 type Templates struct {
-	BadState             *template.Template
-	Index *template.Template
-	InternalError        *template.Template
-
+	BadState      *template.Template
+	Index         *template.Template
+	InternalError *template.Template
 }
 
 func newErrorData(text string, id string) *PageData {

@@ -7,9 +7,9 @@ import (
 )
 
 type Config struct {
-	AssetDir string
-	BaseUrl   string
-	Bind string
+	AssetDir     string
+	BaseUrl      string
+	Bind         string
 	ClientId     string
 	ClientSecret string
 	OidcBaseUrl  string
@@ -32,5 +32,3 @@ func NewConfig(file string) Config {
 
 	return *c
 }
-
-

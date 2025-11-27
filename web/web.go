@@ -7,8 +7,6 @@ import (
 
 	"github.com/coreos/go-oidc/v3/oidc"
 	"golang.org/x/oauth2"
-
-//	"github.com/tacerus/sample-go-webapp"
 )
 
 func (app *WebApp) newMux() *http.ServeMux {
@@ -85,7 +83,7 @@ func (app *WebApp) indexHandler(w http.ResponseWriter, r *http.Request) {
 
 	subject := app.sessionManager.GetString(r.Context(), "subject")
 	p := PageData{
-		Subject: subject,
+		Subject:   subject,
 		SessionId: app.getSessionId(r),
 	}
 	app.templates.Index.ExecuteTemplate(w, "base", p)
