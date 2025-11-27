@@ -46,8 +46,12 @@ func (app *WebApp) getSessionId(r *http.Request) string {
 
 func (app *WebApp) initHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		had_session_id := true
+
 		session_id := app.getSessionId(r)
 		if session_id == "" {
+			had_session_id = false
+
 			var err error
 			session_id, err = randString(12, false)
 			if err != nil {
@@ -56,10 +60,16 @@ func (app *WebApp) initHandler(next http.Handler) http.Handler {
 				return
 			}
 
+			// for display on pages
 			app.sessionManager.Put(r.Context(), "id", session_id)
 		}
 
+		// for logging
 		r = r.WithContext(context.WithValue(r.Context(), "session_id", session_id))
+
+		if !had_session_id {
+			slog.DebugContext(r.Context(), "Initialized session")
+		}
 
 		next.ServeHTTP(w, r)
 	})
@@ -76,6 +86,7 @@ func (app *WebApp) indexHandler(w http.ResponseWriter, r *http.Request) {
 	subject := app.sessionManager.GetString(r.Context(), "subject")
 	p := PageData{
 		Subject: subject,
+		SessionId: app.getSessionId(r),
 	}
 	app.templates.Index.ExecuteTemplate(w, "base", p)
 }
