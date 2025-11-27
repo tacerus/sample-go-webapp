@@ -24,14 +24,12 @@ func main() {
 
 	slog.SetDefault(newSlog(newLogLevel(logLevelArg)))
 
-	slog.Info("Preparing web app ...")
+	slog.Info("Booting web app ...")
 
 	app := web.NewWebApp(core.NewConfig(configArg))
 	if app == nil {
 		os.Exit(1)
 	}
-
-	slog.Info("Booting web app ...")
 
 	cs := make(chan os.Signal, 1)
 	signal.Notify(cs, os.Interrupt)
