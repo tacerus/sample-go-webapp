@@ -1,0 +1,8 @@
+{
+	"AssetDir": "web/assets",
+	"BaseUrl": "https://app.example.com",
+	"Bind": "[::]:5555",
+	"ClientId": "",
+	"ClientSecret": "",
+	"OidcBaseUrl": ""
+}
