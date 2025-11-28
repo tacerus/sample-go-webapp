@@ -1,6 +1,6 @@
 module github.com/tacerus/sample-go-webapp
 
-go 1.25.4
+go 1.24.4
 
 require (
 	github.com/alexedwards/scs/v2 v2.9.0
