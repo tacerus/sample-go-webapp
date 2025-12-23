@@ -33,6 +33,7 @@ func (app *WebApp) newMux() *http.ServeMux {
 	mux.HandleFunc("/", app.indexHandler)
 	mux.HandleFunc("/login/init", app.loginHandler)
 	mux.HandleFunc(callbackPath, app.callbackHandler)
+	mux.HandleFunc("/logout", app.logoutHandler)
 
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(app.staticDir))))
 
@@ -242,4 +243,15 @@ func (app *WebApp) callbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, app.getOrigPath(r), http.StatusFound)
+}
+
+func (app *WebApp) logoutHandler(w http.ResponseWriter, r *http.Request) {
+	err := app.sessionManager.Destroy(r.Context())
+	if err != nil {
+		slog.ErrorContext(r.Context(), "Failed to destroying session", "error", err)
+		app.errorHandler(w, r, ERR_MISC, "Logout failed.")
+		return
+	}
+
+	http.Redirect(w, r, "/", http.StatusFound)
 }

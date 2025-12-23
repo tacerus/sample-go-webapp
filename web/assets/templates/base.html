@@ -11,11 +11,16 @@
     {{template "content" .}}
   </body>
   <footer>
+    <div class="user">
     {{- if .SessionId}}
-    <div class="session_id">
       Session identifier: <code>{{.SessionId}}</code>
-    </div>
     {{- end}}
+    {{- if .Subject}}
+      <div class="c1-btn--primary l-flex logout persimmon">
+        <a href="/logout">Logout</a>
+      </div>
+    {{- end}}
+    </div>
   </footer>
 </html>
 {{end}}

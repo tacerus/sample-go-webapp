@@ -111,10 +111,12 @@ footer {
     background-color: white;
 }
 
-footer.session_id {
-    height: 100px;
-    margin: auto;
-    width: 400px;
-    text-align: center;
+div.user {
+    position: relative;
     padding: 10px;
+}
+
+div.user.logout {
+    display: block;
+    justify-content: center;
 }
