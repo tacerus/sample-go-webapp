@@ -175,7 +175,13 @@ func (app *WebApp) loginHandler(w http.ResponseWriter, r *http.Request) {
 	app.sessionManager.Put(r.Context(), "state", state)
 	app.sessionManager.Put(r.Context(), "nonce", nonce)
 
-	http.Redirect(w, r, app.Oauth2Config.AuthCodeURL(state, oidc.Nonce(nonce)), http.StatusFound)
+	verifier := oauth2.GenerateVerifier()
+	app.sessionManager.Put(r.Context(), "verifier", verifier)
+
+	http.Redirect(w, r, app.Oauth2Config.AuthCodeURL(state,
+		oidc.Nonce(nonce),
+		oauth2.S256ChallengeOption(verifier),
+	), http.StatusFound)
 }
 
 func (app *WebApp) callbackHandler(w http.ResponseWriter, r *http.Request) {
@@ -190,7 +196,7 @@ func (app *WebApp) callbackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	oauth2Token, err := app.Oauth2Config.Exchange(app.Ctx, code)
+	oauth2Token, err := app.Oauth2Config.Exchange(app.Ctx, code, oauth2.SetAuthURLParam("code_verifier", app.sessionManager.GetString(r.Context(), "verifier")))
 	if err != nil {
 		slog.ErrorContext(r.Context(), "Token exchange failed", "error", err)
 		app.errorHandler(w, r, ERR_MISC, "Token exchange failed.")
