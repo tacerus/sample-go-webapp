@@ -55,11 +55,11 @@ install -d \
 
 install webapp %{buildroot}%{_bindir}/%{name}
 
-sed -E 's?("AssetDir": ).*,$?\1"%{webdir}"?' config.json.example > %{buildroot}%{_sysconfdir}/%{name}.json
+sed -E 's?("AssetDir": ).*,$?\1"%{webdir}/assets"?' config.json.example > %{buildroot}%{_sysconfdir}/%{name}.json
 
 cp -r web/assets %{buildroot}%{webdir}
 
-#install -m0644 distribution/apparmor/#{name}.apparmor %{buildroot}#{apparmor_profilesdir}/%{name}
+#install -m0644 distribution/apparmor/#{name}.apparmor #{buildroot}#{apparmor_profilesdir}/#{name}
 install -m0644 distribution/systemd/* %{buildroot}%{_unitdir}
 
 ln -s %{_sbindir}/service %{buildroot}%{_sbindir}/rc%{name}
@@ -79,7 +79,6 @@ ln -s %{_sbindir}/service %{buildroot}%{_sbindir}/rc%{name}
 
 %files
 %license COPYING
-%doc README.md
 %{_bindir}/%{name}
 %{_sbindir}/rc%{name}
 %{_datadir}/%{name}
